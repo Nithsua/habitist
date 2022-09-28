@@ -2,7 +2,7 @@ name: build-check-main
 on:
   push:
     branches:
-      - staging
+      - main
 jobs:
   build:
     runs-on: macos-latest
@@ -21,3 +21,15 @@ jobs:
       - run: flutter build ios --release --no-codesign --dart-define=ENVIRONMENT=staging
       - run: flutter build apk --dart-define=ENVIRONMENT=staging
       - run: flutter build appbundle --dart-define=ENVIRONMENT=staging
+      - uses: actions/create-release@v1
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                tag_name: ${{ github.ref }}
+                release_name: Release ${{ github.ref }}
+                body: |
+                  Changes in this Release
+                  - First Change
+                  - Second Change
+                draft: false
+                prerelease: true
