@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Habitist',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const Scaffold(body: SizedBox.shrink()),
+      home: const Scaffold(body: Center(child: Text('Hola'))),
     );
   }
 }
