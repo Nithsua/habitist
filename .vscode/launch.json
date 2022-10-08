@@ -1,0 +1,50 @@
+{
+  "configurations": [
+    {
+      "name": "Habitist Staging Debug",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "args": ["--dart-define=ENVIRONMENT=staging"]
+    },
+    {
+      "name": "Habitist Staging Profile",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "flutterMode": "profile",
+      "args": ["--dart-define=ENVIRONMENT=staging"]
+    },
+    {
+      "name": "Habitist Staging Release",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "flutterMode": "release",
+      "args": ["--dart-define=ENVIRONMENT=staging"]
+    },
+    {
+      "name": "Habitist Debug",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "args": ["--dart-define=ENVIRONMENT=production"]
+    },
+    {
+      "name": "Habitist Profile",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "flutterMode": "profile",
+      "args": ["--dart-define=ENVIRONMENT=production"]
+    },
+    {
+      "name": "Habitist Release",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "flutterMode": "release",
+      "args": ["--dart-define=ENVIRONMENT=production"]
+    }
+  ]
+}
