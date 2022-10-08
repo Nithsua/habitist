@@ -54,9 +54,9 @@ class Habit with _$Habit {
       (unitValue > 0 && unitValue <= goalValue) &&
       name.isNotEmpty;
 
-  factory Habit.initial(String id) => Habit(
+  factory Habit.initial(String id, String user) => Habit(
         id: id,
-        user: '',
+        user: user,
         name: '',
         type: HabitType.gain,
         period: Period.daily,

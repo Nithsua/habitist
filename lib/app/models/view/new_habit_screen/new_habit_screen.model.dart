@@ -14,9 +14,9 @@ class NewHabitScreenModel with _$NewHabitScreenModel {
     required int selectedColor,
   }) = _NewHabitScreenModel;
 
-  factory NewHabitScreenModel.initial() => NewHabitScreenModel(
+  factory NewHabitScreenModel.initial(String user) => NewHabitScreenModel(
         loading: false,
-        habit: Habit.initial(const Uuid().v4()),
+        habit: Habit.initial(const Uuid().v4(), user),
         selectedColor: 0,
       );
 }
