@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:habitist/app/extension/color.dart';
+import 'package:habitist/app/models/data/habit/habit.model.dart';
 import 'package:habitist/app/widgets/outlined_icon_button.widget.dart';
 
 class Activity extends StatelessWidget {
   static const double _height = 71.0;
-  final Color fillColor;
+  final Habit habit;
   final double fill;
-  const Activity({super.key, required this.fill, required this.fillColor})
+  const Activity({super.key, required this.fill, required this.habit})
       : assert(fill <= 1.0 && fill >= 0.0);
 
   @override
@@ -25,7 +27,7 @@ class Activity extends StatelessWidget {
             height: _height,
             width: constraints.maxWidth * fill,
             decoration: BoxDecoration(
-              color: fillColor,
+              color: ColorExtension.fromJson(habit.color.toJson()),
               borderRadius: BorderRadius.circular(12.0),
             ),
           ),
@@ -44,11 +46,11 @@ class Activity extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Water',
+                        habit.name,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       Text(
-                        '0/3600 ML',
+                        '0/${habit.goalValue} ${habit.unit ?? ''}',
                         style: Theme.of(context).textTheme.caption,
                       ),
                     ],

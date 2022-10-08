@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habitist/app/global_viewmodels.dart';
+import 'package:habitist/app/models/data/habit/habit.model.dart';
 import 'package:habitist/app/screens/activity.widget.dart';
-import 'package:habitist/app/screens/new_habit.screen.dart';
+import 'package:habitist/app/widgets/custom_bottom_navigaton_bar.widget.dart';
 
 final colorPalettes = [
   Colors.amber.shade100,
@@ -15,36 +17,53 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: RichText(
-                text: TextSpan(children: [
-                  TextSpan(
-                      text: 'Hi, Nithsua\n',
-                      style: Theme.of(context).textTheme.titleLarge),
-                  TextSpan(
-                      text: 'Welcome Back',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall
-                          ?.copyWith(fontWeight: FontWeight.bold)),
-                ]),
+        child: ref.watch(homeScreenProvider).when(
+              data: (data) => SingleChildScrollView(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(24.0),
+                        child: RichText(
+                          text: TextSpan(children: [
+                            TextSpan(
+                                text: 'Hi, Nithsua\n',
+                                style: Theme.of(context).textTheme.titleLarge),
+                            TextSpan(
+                                text: 'Welcome Back',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall
+                                    ?.copyWith(fontWeight: FontWeight.bold)),
+                          ]),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      // const Highlights(),
+                      const SizedBox(height: 20.0),
+                      ActivityListView(
+                        habits: data.habits,
+                      ),
+                    ],
+                  ),
+                ],
+              )),
+              error: (error, stackTrace) => Container(),
+              loading: () => Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(),
+                    const CircularProgressIndicator(),
+                  ],
+                ),
               ),
             ),
-
-            OutlinedButton(
-                onPressed: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => NewHabitScreen())),
-                child: const Text('check')),
-            // const Highlights(),
-            const SizedBox(height: 20.0),
-            const ActivityListView(),
-          ],
-        )),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
         onTap: (p0) {},
@@ -84,7 +103,8 @@ class Highlights extends StatelessWidget {
 }
 
 class ActivityListView extends StatelessWidget {
-  const ActivityListView({super.key});
+  final List<Habit> habits;
+  const ActivityListView({super.key, required this.habits});
 
   @override
   Widget build(BuildContext context) {
@@ -101,33 +121,18 @@ class ActivityListView extends StatelessWidget {
           ),
           ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: 3,
+            itemCount: habits.length,
             shrinkWrap: true,
-            padding: const EdgeInsets.symmetric(
-              vertical: 12.0,
-            ),
+            padding: const EdgeInsets.symmetric(vertical: 12.0),
             itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4.0),
                 child: Activity(
-                  fillColor: colorPalettes[0],
+                  habit: habits[index],
                   fill: 0.8,
                 )),
           ),
         ],
       ),
     );
-  }
-}
-
-class CustomBottomNavigationBar extends StatelessWidget {
-  final void Function(int)? onTap;
-  final List<BottomNavigationBarItem> items;
-  const CustomBottomNavigationBar(
-      {Key? key, required this.onTap, required this.items})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row();
   }
 }
