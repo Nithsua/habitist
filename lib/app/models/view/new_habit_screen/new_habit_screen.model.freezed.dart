@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$NewHabitScreenModel {
   Habit get habit => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
+  int get selectedColor => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NewHabitScreenModelCopyWith<NewHabitScreenModel> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $NewHabitScreenModelCopyWith<$Res> {
   factory $NewHabitScreenModelCopyWith(
           NewHabitScreenModel value, $Res Function(NewHabitScreenModel) then) =
       _$NewHabitScreenModelCopyWithImpl<$Res>;
-  $Res call({Habit habit, bool loading});
+  $Res call({Habit habit, bool loading, int selectedColor});
 
   $HabitCopyWith<$Res> get habit;
 }
@@ -47,6 +48,7 @@ class _$NewHabitScreenModelCopyWithImpl<$Res>
   $Res call({
     Object? habit = freezed,
     Object? loading = freezed,
+    Object? selectedColor = freezed,
   }) {
     return _then(_value.copyWith(
       habit: habit == freezed
@@ -57,6 +59,10 @@ class _$NewHabitScreenModelCopyWithImpl<$Res>
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
+      selectedColor: selectedColor == freezed
+          ? _value.selectedColor
+          : selectedColor // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 
@@ -75,7 +81,7 @@ abstract class _$$_NewHabitScreenModelCopyWith<$Res>
           $Res Function(_$_NewHabitScreenModel) then) =
       __$$_NewHabitScreenModelCopyWithImpl<$Res>;
   @override
-  $Res call({Habit habit, bool loading});
+  $Res call({Habit habit, bool loading, int selectedColor});
 
   @override
   $HabitCopyWith<$Res> get habit;
@@ -96,6 +102,7 @@ class __$$_NewHabitScreenModelCopyWithImpl<$Res>
   $Res call({
     Object? habit = freezed,
     Object? loading = freezed,
+    Object? selectedColor = freezed,
   }) {
     return _then(_$_NewHabitScreenModel(
       habit: habit == freezed
@@ -106,6 +113,10 @@ class __$$_NewHabitScreenModelCopyWithImpl<$Res>
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
+      selectedColor: selectedColor == freezed
+          ? _value.selectedColor
+          : selectedColor // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -113,17 +124,20 @@ class __$$_NewHabitScreenModelCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_NewHabitScreenModel extends _NewHabitScreenModel {
-  const _$_NewHabitScreenModel({required this.habit, required this.loading})
+  const _$_NewHabitScreenModel(
+      {required this.habit, required this.loading, required this.selectedColor})
       : super._();
 
   @override
   final Habit habit;
   @override
   final bool loading;
+  @override
+  final int selectedColor;
 
   @override
   String toString() {
-    return 'NewHabitScreenModel(habit: $habit, loading: $loading)';
+    return 'NewHabitScreenModel(habit: $habit, loading: $loading, selectedColor: $selectedColor)';
   }
 
   @override
@@ -132,14 +146,17 @@ class _$_NewHabitScreenModel extends _NewHabitScreenModel {
         (other.runtimeType == runtimeType &&
             other is _$_NewHabitScreenModel &&
             const DeepCollectionEquality().equals(other.habit, habit) &&
-            const DeepCollectionEquality().equals(other.loading, loading));
+            const DeepCollectionEquality().equals(other.loading, loading) &&
+            const DeepCollectionEquality()
+                .equals(other.selectedColor, selectedColor));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(habit),
-      const DeepCollectionEquality().hash(loading));
+      const DeepCollectionEquality().hash(loading),
+      const DeepCollectionEquality().hash(selectedColor));
 
   @JsonKey(ignore: true)
   @override
@@ -151,13 +168,16 @@ class _$_NewHabitScreenModel extends _NewHabitScreenModel {
 abstract class _NewHabitScreenModel extends NewHabitScreenModel {
   const factory _NewHabitScreenModel(
       {required final Habit habit,
-      required final bool loading}) = _$_NewHabitScreenModel;
+      required final bool loading,
+      required final int selectedColor}) = _$_NewHabitScreenModel;
   const _NewHabitScreenModel._() : super._();
 
   @override
   Habit get habit;
   @override
   bool get loading;
+  @override
+  int get selectedColor;
   @override
   @JsonKey(ignore: true)
   _$$_NewHabitScreenModelCopyWith<_$_NewHabitScreenModel> get copyWith =>

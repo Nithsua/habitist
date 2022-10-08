@@ -6,8 +6,7 @@ part of 'habit.model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CustomColor _$$_CustomColorFromJson(Map<String, dynamic> json) =>
-    _$_CustomColor(
+_$_CustomColor _$$_CustomColorFromJson(Map json) => _$_CustomColor(
       red: json['red'] as int,
       blue: json['blue'] as int,
       green: json['green'] as int,
@@ -22,7 +21,7 @@ Map<String, dynamic> _$$_CustomColorToJson(_$_CustomColor instance) =>
       'alpha': instance.alpha,
     };
 
-_$_Habit _$$_HabitFromJson(Map<String, dynamic> json) => _$_Habit(
+_$_Habit _$$_HabitFromJson(Map json) => _$_Habit(
       id: json['id'] as String,
       user: json['user'] as String,
       name: json['name'] as String,
@@ -31,7 +30,8 @@ _$_Habit _$$_HabitFromJson(Map<String, dynamic> json) => _$_Habit(
       goalValue: json['goalValue'] as int,
       unitValue: json['unitValue'] as int,
       groupId: json['groupId'] as String?,
-      color: CustomColor.fromJson(json['color'] as Map<String, dynamic>),
+      color:
+          CustomColor.fromJson(Map<String, dynamic>.from(json['color'] as Map)),
       unit: json['unit'] as String?,
       description: json['description'] as String,
     );
@@ -61,7 +61,7 @@ const _$PeriodEnumMap = {
   Period.monthly: 'monthly',
 };
 
-_$_Journal _$$_JournalFromJson(Map<String, dynamic> json) => _$_Journal(
+_$_Journal _$$_JournalFromJson(Map json) => _$_Journal(
       habitId: json['habitId'] as String,
       dateTime: DateTime.parse(json['dateTime'] as String),
       value: json['value'] as int,

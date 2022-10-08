@@ -11,8 +11,12 @@ class NewHabitScreenModel with _$NewHabitScreenModel {
   const factory NewHabitScreenModel({
     required Habit habit,
     required bool loading,
+    required int selectedColor,
   }) = _NewHabitScreenModel;
 
   factory NewHabitScreenModel.initial() => NewHabitScreenModel(
-      loading: false, habit: Habit.initial(const Uuid().v4()));
+        loading: false,
+        habit: Habit.initial(const Uuid().v4()),
+        selectedColor: 0,
+      );
 }
