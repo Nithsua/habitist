@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:habitist/app/models/habit.model.dart';
+import 'package:habitist/app/models/data/habit/habit.model.dart';
 
 class HabitService {
   final firestore = FirebaseFirestore.instance;
@@ -25,7 +25,7 @@ class HabitService {
         .collection('habits')
         .doc(habit.id)
         .set(habit.toJson())
-        .then((value) => habit, onError: (_, __) {});
+        .then((value) => habit, onError: (_, __) => throw _);
   }
 
   Future<Habit> updateHabit({required Habit habit}) async {
