@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitist/app/constants.dart';
 import 'package:habitist/app/models/view/new_habit_screen/new_habit_screen.model.dart';
@@ -7,10 +9,14 @@ import 'package:habitist/app/viewmodels/new_habit_screen.viewmodel.dart';
 import 'package:habitist/app/widgets/segmented_control.widget.dart';
 
 class NewHabitScreen extends ConsumerWidget {
-  final newHabitScreenProvider =
-      StateNotifierProvider<NewHabitScreenViewModel, NewHabitScreenModel>(
-          (ref) => NewHabitScreenViewModel());
-  NewHabitScreen({Key? key}) : super(key: key);
+  late final StateNotifierProvider<NewHabitScreenViewModel, NewHabitScreenModel>
+      newHabitScreenProvider;
+  NewHabitScreen({Key? key}) : super(key: key) {
+    newHabitScreenProvider = StateNotifierProvider<NewHabitScreenViewModel,
+            NewHabitScreenModel>(
+        (ref) =>
+            NewHabitScreenViewModel(FirebaseAuth.instance.currentUser!.uid));
+  }
 
   Future<void> createHabit(BuildContext context, WidgetRef ref) async {
     ref.read(newHabitScreenProvider.notifier).createHabit().then((value) {
@@ -95,6 +101,9 @@ class NewHabitScreen extends ConsumerWidget {
                       .read(newHabitScreenProvider.notifier)
                       .totalCountController,
                   textInputType: TextInputType.number,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                  ],
                 ),
                 const SizedBox(height: 12.0),
                 TextFieldWithLabel(
@@ -109,6 +118,9 @@ class NewHabitScreen extends ConsumerWidget {
                       .read(newHabitScreenProvider.notifier)
                       .incrementalController,
                   textInputType: TextInputType.number,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                  ],
                 ),
                 const SizedBox(height: 12.0),
                 TextFieldWithLabel(
@@ -119,6 +131,7 @@ class NewHabitScreen extends ConsumerWidget {
                   controller:
                       ref.read(newHabitScreenProvider.notifier).unitController,
                   textInputType: TextInputType.text,
+                  inputFormatters: [LengthLimitingTextInputFormatter(10)],
                 ),
                 const SizedBox(height: 12.0),
                 TextFieldWithLabel(
@@ -131,6 +144,7 @@ class NewHabitScreen extends ConsumerWidget {
                       .read(newHabitScreenProvider.notifier)
                       .descriptionController,
                   textInputType: TextInputType.text,
+                  inputFormatters: [LengthLimitingTextInputFormatter(120)],
                 ),
               ],
             ),
@@ -288,6 +302,7 @@ class TextFieldWithLabel extends StatelessWidget {
   final TextEditingController? controller;
   final String hintText;
   final void Function(String) onChange;
+  final List<TextInputFormatter>? inputFormatters;
   final String? caption;
   final TextInputType? textInputType;
 
@@ -296,6 +311,7 @@ class TextFieldWithLabel extends StatelessWidget {
       this.controller,
       this.caption,
       this.textInputType,
+      this.inputFormatters,
       required this.label,
       required this.hintText,
       required this.onChange});
@@ -314,6 +330,7 @@ class TextFieldWithLabel extends StatelessWidget {
         ),
         const SizedBox(height: 8.0),
         TextField(
+          inputFormatters: inputFormatters,
           keyboardType: textInputType,
           controller: controller,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.0),
@@ -321,9 +338,10 @@ class TextFieldWithLabel extends StatelessWidget {
           decoration: InputDecoration(
             filled: true,
             hintText: hintText,
-            hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey,
-                ),
+            hintStyle: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: Colors.grey),
             fillColor: Colors.grey.shade300,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.0),
