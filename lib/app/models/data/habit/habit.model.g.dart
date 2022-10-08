@@ -6,6 +6,22 @@ part of 'habit.model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$_CustomColor _$$_CustomColorFromJson(Map<String, dynamic> json) =>
+    _$_CustomColor(
+      red: json['red'] as int,
+      blue: json['blue'] as int,
+      green: json['green'] as int,
+      alpha: json['alpha'] as int,
+    );
+
+Map<String, dynamic> _$$_CustomColorToJson(_$_CustomColor instance) =>
+    <String, dynamic>{
+      'red': instance.red,
+      'blue': instance.blue,
+      'green': instance.green,
+      'alpha': instance.alpha,
+    };
+
 _$_Habit _$$_HabitFromJson(Map<String, dynamic> json) => _$_Habit(
       id: json['id'] as String,
       user: json['user'] as String,
@@ -15,8 +31,8 @@ _$_Habit _$$_HabitFromJson(Map<String, dynamic> json) => _$_Habit(
       goalValue: json['goalValue'] as int,
       unitValue: json['unitValue'] as int,
       groupId: json['groupId'] as String?,
-      color: json['color'] as int,
-      unit: json['unit'] as String,
+      color: CustomColor.fromJson(json['color'] as Map<String, dynamic>),
+      unit: json['unit'] as String?,
       description: json['description'] as String,
     );
 
@@ -29,7 +45,7 @@ Map<String, dynamic> _$$_HabitToJson(_$_Habit instance) => <String, dynamic>{
       'goalValue': instance.goalValue,
       'unitValue': instance.unitValue,
       'groupId': instance.groupId,
-      'color': instance.color,
+      'color': instance.color.toJson(),
       'unit': instance.unit,
       'description': instance.description,
     };

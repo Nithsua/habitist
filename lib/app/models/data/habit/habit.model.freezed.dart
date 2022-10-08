@@ -14,6 +14,198 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+CustomColor _$CustomColorFromJson(Map<String, dynamic> json) {
+  return _CustomColor.fromJson(json);
+}
+
+/// @nodoc
+mixin _$CustomColor {
+  int get red => throw _privateConstructorUsedError;
+  int get blue => throw _privateConstructorUsedError;
+  int get green => throw _privateConstructorUsedError;
+  int get alpha => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CustomColorCopyWith<CustomColor> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CustomColorCopyWith<$Res> {
+  factory $CustomColorCopyWith(
+          CustomColor value, $Res Function(CustomColor) then) =
+      _$CustomColorCopyWithImpl<$Res>;
+  $Res call({int red, int blue, int green, int alpha});
+}
+
+/// @nodoc
+class _$CustomColorCopyWithImpl<$Res> implements $CustomColorCopyWith<$Res> {
+  _$CustomColorCopyWithImpl(this._value, this._then);
+
+  final CustomColor _value;
+  // ignore: unused_field
+  final $Res Function(CustomColor) _then;
+
+  @override
+  $Res call({
+    Object? red = freezed,
+    Object? blue = freezed,
+    Object? green = freezed,
+    Object? alpha = freezed,
+  }) {
+    return _then(_value.copyWith(
+      red: red == freezed
+          ? _value.red
+          : red // ignore: cast_nullable_to_non_nullable
+              as int,
+      blue: blue == freezed
+          ? _value.blue
+          : blue // ignore: cast_nullable_to_non_nullable
+              as int,
+      green: green == freezed
+          ? _value.green
+          : green // ignore: cast_nullable_to_non_nullable
+              as int,
+      alpha: alpha == freezed
+          ? _value.alpha
+          : alpha // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_CustomColorCopyWith<$Res>
+    implements $CustomColorCopyWith<$Res> {
+  factory _$$_CustomColorCopyWith(
+          _$_CustomColor value, $Res Function(_$_CustomColor) then) =
+      __$$_CustomColorCopyWithImpl<$Res>;
+  @override
+  $Res call({int red, int blue, int green, int alpha});
+}
+
+/// @nodoc
+class __$$_CustomColorCopyWithImpl<$Res> extends _$CustomColorCopyWithImpl<$Res>
+    implements _$$_CustomColorCopyWith<$Res> {
+  __$$_CustomColorCopyWithImpl(
+      _$_CustomColor _value, $Res Function(_$_CustomColor) _then)
+      : super(_value, (v) => _then(v as _$_CustomColor));
+
+  @override
+  _$_CustomColor get _value => super._value as _$_CustomColor;
+
+  @override
+  $Res call({
+    Object? red = freezed,
+    Object? blue = freezed,
+    Object? green = freezed,
+    Object? alpha = freezed,
+  }) {
+    return _then(_$_CustomColor(
+      red: red == freezed
+          ? _value.red
+          : red // ignore: cast_nullable_to_non_nullable
+              as int,
+      blue: blue == freezed
+          ? _value.blue
+          : blue // ignore: cast_nullable_to_non_nullable
+              as int,
+      green: green == freezed
+          ? _value.green
+          : green // ignore: cast_nullable_to_non_nullable
+              as int,
+      alpha: alpha == freezed
+          ? _value.alpha
+          : alpha // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_CustomColor implements _CustomColor {
+  const _$_CustomColor(
+      {required this.red,
+      required this.blue,
+      required this.green,
+      required this.alpha});
+
+  factory _$_CustomColor.fromJson(Map<String, dynamic> json) =>
+      _$$_CustomColorFromJson(json);
+
+  @override
+  final int red;
+  @override
+  final int blue;
+  @override
+  final int green;
+  @override
+  final int alpha;
+
+  @override
+  String toString() {
+    return 'CustomColor(red: $red, blue: $blue, green: $green, alpha: $alpha)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_CustomColor &&
+            const DeepCollectionEquality().equals(other.red, red) &&
+            const DeepCollectionEquality().equals(other.blue, blue) &&
+            const DeepCollectionEquality().equals(other.green, green) &&
+            const DeepCollectionEquality().equals(other.alpha, alpha));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(red),
+      const DeepCollectionEquality().hash(blue),
+      const DeepCollectionEquality().hash(green),
+      const DeepCollectionEquality().hash(alpha));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_CustomColorCopyWith<_$_CustomColor> get copyWith =>
+      __$$_CustomColorCopyWithImpl<_$_CustomColor>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_CustomColorToJson(
+      this,
+    );
+  }
+}
+
+abstract class _CustomColor implements CustomColor {
+  const factory _CustomColor(
+      {required final int red,
+      required final int blue,
+      required final int green,
+      required final int alpha}) = _$_CustomColor;
+
+  factory _CustomColor.fromJson(Map<String, dynamic> json) =
+      _$_CustomColor.fromJson;
+
+  @override
+  int get red;
+  @override
+  int get blue;
+  @override
+  int get green;
+  @override
+  int get alpha;
+  @override
+  @JsonKey(ignore: true)
+  _$$_CustomColorCopyWith<_$_CustomColor> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 Habit _$HabitFromJson(Map<String, dynamic> json) {
   return _Habit.fromJson(json);
 }
@@ -28,8 +220,8 @@ mixin _$Habit {
   int get goalValue => throw _privateConstructorUsedError;
   int get unitValue => throw _privateConstructorUsedError;
   String? get groupId => throw _privateConstructorUsedError;
-  int get color => throw _privateConstructorUsedError;
-  String get unit => throw _privateConstructorUsedError;
+  CustomColor get color => throw _privateConstructorUsedError;
+  String? get unit => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,9 +242,11 @@ abstract class $HabitCopyWith<$Res> {
       int goalValue,
       int unitValue,
       String? groupId,
-      int color,
-      String unit,
+      CustomColor color,
+      String? unit,
       String description});
+
+  $CustomColorCopyWith<$Res> get color;
 }
 
 /// @nodoc
@@ -113,16 +307,23 @@ class _$HabitCopyWithImpl<$Res> implements $HabitCopyWith<$Res> {
       color: color == freezed
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as int,
+              as CustomColor,
       unit: unit == freezed
           ? _value.unit
           : unit // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
     ));
+  }
+
+  @override
+  $CustomColorCopyWith<$Res> get color {
+    return $CustomColorCopyWith<$Res>(_value.color, (value) {
+      return _then(_value.copyWith(color: value));
+    });
   }
 }
 
@@ -140,9 +341,12 @@ abstract class _$$_HabitCopyWith<$Res> implements $HabitCopyWith<$Res> {
       int goalValue,
       int unitValue,
       String? groupId,
-      int color,
-      String unit,
+      CustomColor color,
+      String? unit,
       String description});
+
+  @override
+  $CustomColorCopyWith<$Res> get color;
 }
 
 /// @nodoc
@@ -204,11 +408,11 @@ class __$$_HabitCopyWithImpl<$Res> extends _$HabitCopyWithImpl<$Res>
       color: color == freezed
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as int,
+              as CustomColor,
       unit: unit == freezed
           ? _value.unit
           : unit // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -219,7 +423,7 @@ class __$$_HabitCopyWithImpl<$Res> extends _$HabitCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Habit implements _Habit {
+class _$_Habit extends _Habit {
   const _$_Habit(
       {required this.id,
       required this.user,
@@ -231,7 +435,8 @@ class _$_Habit implements _Habit {
       required this.groupId,
       required this.color,
       required this.unit,
-      required this.description});
+      required this.description})
+      : super._();
 
   factory _$_Habit.fromJson(Map<String, dynamic> json) =>
       _$$_HabitFromJson(json);
@@ -253,9 +458,9 @@ class _$_Habit implements _Habit {
   @override
   final String? groupId;
   @override
-  final int color;
+  final CustomColor color;
   @override
-  final String unit;
+  final String? unit;
   @override
   final String description;
 
@@ -312,7 +517,7 @@ class _$_Habit implements _Habit {
   }
 }
 
-abstract class _Habit implements Habit {
+abstract class _Habit extends Habit {
   const factory _Habit(
       {required final String id,
       required final String user,
@@ -322,9 +527,10 @@ abstract class _Habit implements Habit {
       required final int goalValue,
       required final int unitValue,
       required final String? groupId,
-      required final int color,
-      required final String unit,
+      required final CustomColor color,
+      required final String? unit,
       required final String description}) = _$_Habit;
+  const _Habit._() : super._();
 
   factory _Habit.fromJson(Map<String, dynamic> json) = _$_Habit.fromJson;
 
@@ -345,9 +551,9 @@ abstract class _Habit implements Habit {
   @override
   String? get groupId;
   @override
-  int get color;
+  CustomColor get color;
   @override
-  String get unit;
+  String? get unit;
   @override
   String get description;
   @override
