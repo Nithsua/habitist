@@ -13,7 +13,8 @@ class NewHabitScreenViewModel extends StateNotifier<NewHabitScreenModel> {
   final TextEditingController unitController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
 
-  NewHabitScreenViewModel() : super(NewHabitScreenModel.initial());
+  NewHabitScreenViewModel(String user)
+      : super(NewHabitScreenModel.initial(user));
 
   void changeName(String name) =>
       state = state.copyWith(habit: state.habit.copyWith(name: name));
