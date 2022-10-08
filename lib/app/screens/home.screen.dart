@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitist/app/global_viewmodels.dart';
 import 'package:habitist/app/models/data/habit/habit.model.dart';
 import 'package:habitist/app/screens/activity.widget.dart';
+import 'package:habitist/app/screens/menu.screen.dart';
 import 'package:habitist/app/widgets/custom_bottom_navigaton_bar.widget.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -24,28 +25,50 @@ class HomeScreen extends ConsumerWidget {
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(24.0),
-                                  child: RichText(
-                                    text: TextSpan(children: [
-                                      TextSpan(
-                                          text: 'Hi, Nithsua\n',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge),
-                                      TextSpan(
-                                          text: 'Welcome Back',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall
-                                              ?.copyWith(
-                                                  fontWeight: FontWeight.bold)),
-                                    ]),
+                            Padding(
+                              padding: const EdgeInsets.all(24.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      RichText(
+                                        text: TextSpan(children: [
+                                          TextSpan(
+                                              text: 'Hi, Nithsua\n',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge),
+                                          TextSpan(
+                                              text: 'Welcome Back',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineSmall
+                                                  ?.copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                        ]),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(width: 12),
+                                  GestureDetector(
+                                    onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                const MenuScreen())),
+                                    child: CircleAvatar(
+                                      backgroundColor: Colors.grey.shade200,
+                                      child: Icon(
+                                        Icons.menu,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                             Column(
                               children: [
@@ -73,10 +96,12 @@ class HomeScreen extends ConsumerWidget {
               ),
             ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        onTap: (p0) {},
-        items: [],
-      ),
+      bottomNavigationBar: ref.watch(homeScreenProvider).value != null
+          ? CustomBottomNavigationBar(
+              onTap: (p0) {},
+              items: [],
+            )
+          : const SizedBox(),
     );
   }
 }
