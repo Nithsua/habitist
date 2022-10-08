@@ -1,12 +1,20 @@
+import 'dart:io';
+
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habitist/app/models/view/onboard_screen/onboard_screen.model.dart';
+import 'package:habitist/app/viewmodels/onboard_screen.viewmodel.dart';
 
-class OnboardScreen extends StatelessWidget {
+class OnboardScreen extends ConsumerWidget {
   final pageController = PageController();
+  final onboardScreenProvider =
+      StateNotifierProvider<OnboardScreenViewModel, OnboardScreenModel>(
+          (_) => OnboardScreenViewModel());
   OnboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: LayoutBuilder(builder: (context, constraints) {
         return Stack(
@@ -25,23 +33,31 @@ class OnboardScreen extends StatelessWidget {
               width: constraints.maxWidth,
               height: constraints.maxHeight * 0.4,
               child: Material(
-                  color: Colors.white,
-                  elevation: 15.0,
-                  borderRadius: BorderRadius.circular(25.0),
-                  child: PageView(
-                    controller: pageController,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      OnboardSubPageOne(
-                          totalPages: 2,
-                          onPressed: () {
-                            pageController.animateToPage(1,
-                                duration: const Duration(milliseconds: 200),
-                                curve: Curves.easeIn);
-                          }),
-                      const OnboardSubPageTwo()
-                    ],
-                  )),
+                color: Colors.white,
+                elevation: 15.0,
+                borderRadius: BorderRadius.circular(25.0),
+                child: PageView(
+                  controller: pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    OnboardSubPageOne(
+                        totalPages: 2,
+                        onPressed: () {
+                          pageController.animateToPage(1,
+                              duration: const Duration(milliseconds: 200),
+                              curve: Curves.easeIn);
+                        }),
+                    OnboardSubPageTwo(
+                        googleSignIn: ref
+                            .read(onboardScreenProvider.notifier)
+                            .signInWithGoogle,
+                        appleSignIn: ref
+                            .read(onboardScreenProvider.notifier)
+                            .signInWithApple,
+                        allowSignIn: !ref.watch(onboardScreenProvider).loading),
+                  ],
+                ),
+              ),
             ),
           ],
         );
@@ -117,7 +133,14 @@ class OnboardSubPageOne extends StatelessWidget {
 }
 
 class OnboardSubPageTwo extends StatelessWidget {
-  const OnboardSubPageTwo({super.key});
+  final bool allowSignIn;
+  final VoidCallback googleSignIn;
+  final VoidCallback appleSignIn;
+  const OnboardSubPageTwo(
+      {super.key,
+      required this.allowSignIn,
+      required this.googleSignIn,
+      required this.appleSignIn});
 
   @override
   Widget build(BuildContext context) {
@@ -148,9 +171,37 @@ class OnboardSubPageTwo extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          const SignInWithAppleButton(),
-          const SizedBox(height: 16.0),
-          const SignInWithGoogleButton(),
+          Column(
+            children: [
+              Platform.isIOS
+                  ? SignInButton(
+                      leading: Image.asset(
+                        'assets/logo/apple.png',
+                        height: 30,
+                        width: 30,
+                        color: Colors.white,
+                      ),
+                      text: 'Sign In with Apple',
+                      disableColor: Colors.black,
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.black,
+                      onPressed: allowSignIn ? appleSignIn : null,
+                    )
+                  : const SizedBox(),
+              const SizedBox(height: 16.0),
+              SignInButton(
+                leading: Image.asset(
+                  'assets/logo/google.png',
+                  height: 25,
+                  width: 25,
+                ),
+                text: 'Sign In with Google',
+                foregroundColor: Colors.black,
+                backgroundColor: Colors.white,
+                onPressed: allowSignIn ? googleSignIn : null,
+              ),
+            ],
+          ),
           const Spacer(),
         ],
       ),
@@ -158,47 +209,9 @@ class OnboardSubPageTwo extends StatelessWidget {
   }
 }
 
-class SignInWithAppleButton extends StatelessWidget {
-  const SignInWithAppleButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SignInButton(
-      leading: Image.asset(
-        'assets/logo/apple.png',
-        height: 30,
-        width: 30,
-        color: Colors.white,
-      ),
-      text: 'Sign In with Apple',
-      foregroundColor: Colors.white,
-      backgroundColor: Colors.black,
-      onPressed: () {},
-    );
-  }
-}
-
-class SignInWithGoogleButton extends StatelessWidget {
-  const SignInWithGoogleButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SignInButton(
-      leading: Image.asset(
-        'assets/logo/google.png',
-        height: 25,
-        width: 25,
-      ),
-      text: 'Sign In with Google',
-      foregroundColor: Colors.black,
-      backgroundColor: Colors.white,
-      onPressed: () {},
-    );
-  }
-}
-
 class SignInButton extends StatelessWidget {
   final VoidCallback? onPressed;
+  final Color? disableColor;
   final Widget leading;
   final String text;
   final Color foregroundColor;
@@ -206,6 +219,7 @@ class SignInButton extends StatelessWidget {
   const SignInButton({
     super.key,
     this.onPressed,
+    this.disableColor,
     this.foregroundColor = Colors.white,
     this.backgroundColor = Colors.black,
     required this.leading,
@@ -217,6 +231,7 @@ class SignInButton extends StatelessWidget {
     return MaterialButton(
       onPressed: onPressed,
       color: backgroundColor,
+      disabledColor: disableColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(9.0)),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
