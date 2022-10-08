@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habitist/app/constants.dart';
 import 'package:habitist/app/models/view/new_habit_screen/new_habit_screen.model.dart';
 import 'package:habitist/app/screens/home.screen.dart';
 import 'package:habitist/app/viewmodels/new_habit_screen.viewmodel.dart';
@@ -73,6 +74,16 @@ class NewHabitScreen extends ConsumerWidget {
                   caption: 'Choose the frequency you wanna track the habit by',
                 ),
                 const SizedBox(height: 12.0),
+                ColorPickerWithLabel(
+                  label: 'Choose',
+                  colors: colorPalettes,
+                  selected: ref.watch(newHabitScreenProvider).selectedColor,
+                  onChange:
+                      ref.read(newHabitScreenProvider.notifier).changeColor,
+                  caption:
+                      'Choose a color you would like to represent the habit with',
+                ),
+                const SizedBox(height: 12.0),
                 TextFieldWithLabel(
                   label: 'Total Count',
                   hintText: '3000',
@@ -125,6 +136,104 @@ class NewHabitScreen extends ConsumerWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ColorPickerWithLabel extends StatelessWidget {
+  final String? caption;
+  final String label;
+  final int selected;
+  final List<Color> colors;
+  final void Function(int)? onChange;
+  const ColorPickerWithLabel({
+    super.key,
+    this.onChange,
+    this.caption,
+    required this.label,
+    required this.selected,
+    required this.colors,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 8.0),
+        CustomColorPicker(
+          onChange: onChange,
+          selected: selected,
+          colors: colors,
+        ),
+        caption != null
+            ? Column(
+                children: [
+                  const SizedBox(height: 4),
+                  Text(caption!, style: Theme.of(context).textTheme.caption),
+                  const SizedBox(height: 8)
+                ],
+              )
+            : const SizedBox()
+      ],
+    );
+  }
+}
+
+class CustomColorPicker extends StatelessWidget {
+  final int selected;
+  final List<Color> colors;
+  final void Function(int)? onChange;
+  const CustomColorPicker({
+    super.key,
+    this.onChange,
+    required this.colors,
+    required this.selected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: colors
+          .asMap()
+          .keys
+          .map((i) => Padding(
+                padding: const EdgeInsets.only(right: 8.0, top: 2),
+                child: GestureDetector(
+                  onTap: () => onChange?.call(i),
+                  child: ColorPick(
+                      color: colorPalettes[i], isSelected: selected == i),
+                ),
+              ))
+          .toList(),
+    );
+  }
+}
+
+class ColorPick extends StatelessWidget {
+  final Color color;
+  final bool isSelected;
+  const ColorPick({super.key, required this.color, required this.isSelected});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border:
+              isSelected ? Border.all(width: 4.0, color: Colors.black) : null),
+      child: CircleAvatar(
+        maxRadius: 14,
+        backgroundColor: color,
       ),
     );
   }
