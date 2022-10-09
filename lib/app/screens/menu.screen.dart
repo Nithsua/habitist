@@ -9,11 +9,8 @@ class MenuScreen extends StatelessWidget {
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          SliverAppBar(
-            title: Text(
-              'Menu',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
+          const SliverAppBar(
+            title: Text('Menu'),
           ),
         ],
         body: SingleChildScrollView(

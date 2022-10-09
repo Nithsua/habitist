@@ -20,8 +20,10 @@ class NewHabitScreen extends ConsumerWidget {
 
   Future<void> createHabit(BuildContext context, WidgetRef ref) async {
     ref.read(newHabitScreenProvider.notifier).createHabit().then((value) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+          (route) => false);
     });
   }
 
@@ -32,6 +34,7 @@ class NewHabitScreen extends ConsumerWidget {
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
             pinned: true,
+            title: const Text('New Habit'),
             actions: [
               MaterialButton(
                 height: 20.0,

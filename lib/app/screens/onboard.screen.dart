@@ -35,7 +35,9 @@ class OnboardScreen extends ConsumerWidget {
               child: Material(
                 color: Colors.white,
                 elevation: 15.0,
-                borderRadius: BorderRadius.circular(25.0),
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(25.0),
+                    topRight: Radius.circular(25.0)),
                 child: PageView(
                   controller: pageController,
                   physics: const NeverScrollableScrollPhysics(),
