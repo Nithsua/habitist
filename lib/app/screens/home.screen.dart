@@ -14,12 +14,12 @@ class HomeScreen extends ConsumerWidget {
     return Scaffold(
       body: SafeArea(
         child: ref.watch(homeScreenProvider).when(
-              data: (data) => LayoutBuilder(builder: (context, constraints) {
-                return RefreshIndicator(
-                  onRefresh: () async =>
-                      await ref.read(homeScreenProvider.notifier).fetchData(),
-                  child: SizedBox.expand(
-                    child: SingleChildScrollView(
+              data: (data) => RefreshIndicator(
+                onRefresh: () async =>
+                    await ref.read(homeScreenProvider.notifier).fetchData(),
+                child: SizedBox.expand(
+                  child: LayoutBuilder(builder: (context, constraints) {
+                    return SingleChildScrollView(
                         physics: const AlwaysScrollableScrollPhysics(),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -61,7 +61,7 @@ class HomeScreen extends ConsumerWidget {
                                                 const MenuScreen())),
                                     child: CircleAvatar(
                                       backgroundColor: Colors.grey.shade200,
-                                      child: Icon(
+                                      child: const Icon(
                                         Icons.menu,
                                         color: Colors.black,
                                       ),
@@ -70,20 +70,36 @@ class HomeScreen extends ConsumerWidget {
                                 ],
                               ),
                             ),
-                            Column(
-                              children: [
-                                // const Highlights(),
-                                const SizedBox(height: 20.0),
-                                ActivityListView(
-                                  habits: data.habits,
-                                ),
-                              ],
-                            ),
+                            data.habits.isNotEmpty
+                                ? Column(
+                                    children: [
+                                      const SizedBox(height: 20.0),
+                                      ActivityListView(
+                                        habits: data.habits,
+                                      ),
+                                    ],
+                                  )
+                                : SizedBox(
+                                    height: constraints.maxHeight - 18.0,
+                                    width: constraints.maxWidth,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'No Habits Yet, Start by creating one',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                           ],
-                        )),
-                  ),
-                );
-              }),
+                        ));
+                  }),
+                ),
+              ),
               error: (error, stackTrace) => Container(),
               loading: () => Center(
                 child: Column(
@@ -102,35 +118,6 @@ class HomeScreen extends ConsumerWidget {
               items: [],
             )
           : const SizedBox(),
-    );
-  }
-}
-
-class Highlights extends StatelessWidget {
-  const Highlights({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 12.0,
-        horizontal: 16.0,
-      ),
-      child: LayoutBuilder(builder: (context, constraints) {
-        return Container(
-          height: 170,
-          width: constraints.maxWidth,
-          decoration: BoxDecoration(
-            gradient:
-                const LinearGradient(colors: [Colors.black, Colors.black54]),
-            borderRadius: BorderRadius.circular(12.0),
-            boxShadow: kElevationToShadow[0],
-          ),
-          child: SizedBox(
-            width: constraints.maxWidth,
-          ),
-        );
-      }),
     );
   }
 }
@@ -162,6 +149,8 @@ class ActivityListView extends StatelessWidget {
                 child: Activity(
                   habit: habits[index],
                   fill: 0.8,
+                  onTap: () {},
+                  customValue: (_) {},
                 )),
           ),
         ],
