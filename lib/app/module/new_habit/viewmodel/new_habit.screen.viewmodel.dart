@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitist/app/common/constants.dart';
+import 'package:habitist/app/common/provider/singleton.provider.dart';
+import 'package:habitist/app/common/provider/viewmodel.provider.dart';
+import 'package:habitist/app/common/util/constants.dart';
 import 'package:habitist/app/common/extension/color.dart';
-import 'package:habitist/app/common/models/habit/habit.model.dart';
-import 'package:habitist/app/common/utils/singleton.provider.dart';
+import 'package:habitist/app/common/model/habit/habit.model.dart';
 import 'package:habitist/app/module/new_habit/model/new_habit.screen.model.dart';
-import 'package:habitist/app/common/utils/viewmodel.provider.dart';
 
 class NewHabitScreenViewModel extends AutoDisposeNotifier<NewHabitScreenModel> {
   late final TextEditingController nameController;
@@ -14,7 +14,7 @@ class NewHabitScreenViewModel extends AutoDisposeNotifier<NewHabitScreenModel> {
   late final TextEditingController unitController;
   late final TextEditingController descriptionController;
 
-  NewHabitScreenViewModel() {
+  NewHabitScreenViewModel() : super() {
     nameController = TextEditingController();
     totalCountController = TextEditingController();
     incrementalController = TextEditingController();

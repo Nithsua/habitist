@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:habitist/app/common/models/habit/habit.model.dart';
+import 'package:habitist/app/common/model/habit/habit.model.dart';
 import 'package:uuid/uuid.dart';
 
 part 'new_habit.screen.model.freezed.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:habitist/app/common/extension/color.dart';
-import 'package:habitist/app/common/models/habit/habit.model.dart';
+import 'package:habitist/app/common/model/habit/habit.model.dart';
 import 'package:habitist/app/widgets/outlined_icon_button.widget.dart';
 
 class Activity extends StatelessWidget {

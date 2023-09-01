@@ -3,6 +3,4 @@ import 'package:habitist/app/common/viewmodel/habit/habit.viewmodel.dart';
 
 // ViewModels
 final habitViewModelProvider =
-    AsyncNotifierProvider<HabitViewModel, HabitState>(() {
-  return HabitViewModel();
-});
+    AsyncNotifierProvider<HabitViewModel, HabitState>(HabitViewModel.new);

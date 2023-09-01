@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitist/app/common/utils/viewmodel.provider.dart';
-import 'package:habitist/app/common/models/habit/habit.model.dart';
+import 'package:habitist/app/common/provider/viewmodel.provider.dart';
+import 'package:habitist/app/common/model/habit/habit.model.dart';
 import 'package:habitist/app/screens/activity.widget.dart';
 import 'package:habitist/app/screens/menu.screen.dart';
 import 'package:habitist/app/widgets/custom_bottom_navigaton_bar.widget.dart';
@@ -12,8 +12,31 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: SafeArea(
-        child: ref.watch(habitViewModelProvider).when(
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
+              pinned: true,
+              snap: true,
+              elevation: 3,
+              floating: true,
+              expandedHeight: 96,
+              flexibleSpace: LayoutBuilder(builder: (context, constraints) {
+                return FlexibleSpaceBar(
+                  titlePadding: EdgeInsets.only(
+                      left: 16,
+                      bottom: constraints.maxHeight > 100 ? 0.0 : 16.0),
+                  title: const Text(
+                    'Welcome',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  centerTitle: false,
+                );
+              }),
+            ),
+          ];
+        },
+        body: ref.watch(habitViewModelProvider).when(
               data: (data) {
                 return data.when(
                   loaded: (habits) {

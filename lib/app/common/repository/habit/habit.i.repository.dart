@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:habitist/app/common/models/habit/habit.model.dart';
+import 'package:habitist/app/common/model/habit/habit.model.dart';
 import 'package:habitist/app/common/repository/habit/habit.repository.dart';
 
 class IHabitRepository implements HabitRepository {

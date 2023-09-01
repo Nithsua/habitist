@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:habitist/app/common/services/auth.service.dart';
+import 'package:habitist/app/common/service/auth.service.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});

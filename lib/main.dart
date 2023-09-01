@@ -4,7 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitist/app/common/utils/singleton.provider.dart';
+import 'package:habitist/app/common/provider/singleton.provider.dart';
+import 'package:habitist/app/module/onboarding/view/onboard.screen.dart';
 
 void main() async {
   runZonedGuarded(() async {
@@ -25,10 +26,27 @@ class Habitist extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MaterialApp.router(
-      routerConfig: ref.read(routerProvider).router,
-      title: 'Habitist',
-      theme: ref.read(themeProvider).theme,
-    );
+    return ref.watch(userStreamProvider).mapOrNull(
+          data: (user) {
+            if (user.value != null) {
+              return MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                routerConfig: ref.read(routerProvider).router,
+                title: 'Habitist',
+                theme: ref.read(themeProvider).theme,
+              );
+            }
+            return null;
+          },
+//               error: (_, __) {
+// return
+//               },
+        ) ??
+        MaterialApp(
+          title: 'Habitist',
+          debugShowCheckedModeBanner: false,
+          theme: ref.read(themeProvider).theme,
+          home: OnboardScreen(),
+        );
   }
 }

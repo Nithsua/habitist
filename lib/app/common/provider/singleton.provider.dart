@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitist/app/common/services/router.service.dart';
-import 'package:habitist/app/common/theme.dart';
+import 'package:habitist/app/common/service/router.service.dart';
+import 'package:habitist/app/common/util/theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -10,7 +10,7 @@ final firestoreInstance =
 final firebaseAuthInstance =
     Provider<FirebaseAuth>((_) => FirebaseAuth.instance);
 final userStreamProvider =
-    StreamProvider((ref) => ref.read(firebaseAuthInstance).userChanges());
+    StreamProvider((ref) => ref.watch(firebaseAuthInstance).userChanges());
 
 // Routing
 final routerProvider = Provider(

@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final class AppTheme {
-  final primaryColor = Colors.black;
+  static const primaryColor = Colors.black;
 
-  final scaffoldBackgroundColor = Colors.white;
+  static const scaffoldBackgroundColor = Colors.white;
 
-  final appBarTheme = const AppBarTheme(
+  static const systemUIOverlayStyle = SystemUiOverlayStyle(
+    statusBarColor: Colors.white,
+    statusBarIconBrightness: Brightness.dark,
+    systemNavigationBarColor: Colors.white,
+    systemNavigationBarIconBrightness: Brightness.dark,
+  );
+
+  static const appBarTheme = AppBarTheme(
+    systemOverlayStyle: systemUIOverlayStyle,
     backgroundColor: Colors.white,
     foregroundColor: Colors.black,
   );
 
-  final bottomNavigationBarTheme = const BottomNavigationBarThemeData(
+  static const bottomNavigationBarTheme = BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
     showSelectedLabels: false,
     showUnselectedLabels: false,

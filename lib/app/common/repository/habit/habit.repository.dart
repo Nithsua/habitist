@@ -1,4 +1,4 @@
-import 'package:habitist/app/common/models/habit/habit.model.dart';
+import 'package:habitist/app/common/model/habit/habit.model.dart';
 
 abstract interface class HabitRepository {
   Future<List<Habit>> getHabits({required String userId});

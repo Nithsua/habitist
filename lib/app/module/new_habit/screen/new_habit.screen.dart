@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitist/app/common/constants.dart';
+import 'package:habitist/app/common/util/constants.dart';
 import 'package:habitist/app/module/home/screen/home.screen.dart';
 import 'package:habitist/app/module/new_habit/model/new_habit.screen.model.dart';
 import 'package:habitist/app/module/new_habit/viewmodel/new_habit.screen.viewmodel.dart';
@@ -13,9 +13,8 @@ class NewHabitScreen extends ConsumerWidget {
 
   NewHabitScreen({Key? key}) : super(key: key) {
     newHabitScreenProvider = NotifierProvider.autoDispose<
-        NewHabitScreenViewModel, NewHabitScreenModel>(
-      () => NewHabitScreenViewModel(),
-    );
+        NewHabitScreenViewModel,
+        NewHabitScreenModel>(NewHabitScreenViewModel.new);
   }
 
   Future<void> createHabit(BuildContext context, WidgetRef ref) async {
@@ -38,7 +37,7 @@ class NewHabitScreen extends ConsumerWidget {
             actions: [
               MaterialButton(
                 height: 20.0,
-                onPressed: ref.watch(newHabitScreenProvider).habit.validate
+                onPressed: ref.read(newHabitScreenProvider).habit.validate
                     ? () => createHabit(context, ref)
                     : null,
                 child: const Text('Save'),
