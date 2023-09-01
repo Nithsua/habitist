@@ -3,8 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitist/app/common/constants.dart';
 import 'package:habitist/app/common/extension/color.dart';
 import 'package:habitist/app/common/models/habit/habit.model.dart';
+import 'package:habitist/app/common/utils/singleton.provider.dart';
 import 'package:habitist/app/module/new_habit/model/new_habit.screen.model.dart';
-import 'package:habitist/app/viewmodel_instances.dart';
+import 'package:habitist/app/common/utils/viewmodel.provider.dart';
 
 class NewHabitScreenViewModel extends AutoDisposeNotifier<NewHabitScreenModel> {
   late final TextEditingController nameController;

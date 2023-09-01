@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitist/app/common/repository/habit/habit.repository.dart';
-import 'package:habitist/app/viewmodel_instances.dart';
+import 'package:habitist/app/common/utils/repository.provider.dart';
+import 'package:habitist/app/common/utils/singleton.provider.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:habitist/app/common/models/habit/habit.model.dart';
 

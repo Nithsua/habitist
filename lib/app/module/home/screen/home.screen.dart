@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitist/app/viewmodel_instances.dart';
+import 'package:habitist/app/common/utils/viewmodel.provider.dart';
 import 'package:habitist/app/common/models/habit/habit.model.dart';
 import 'package:habitist/app/screens/activity.widget.dart';
 import 'package:habitist/app/screens/menu.screen.dart';

@@ -4,45 +4,31 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:habitist/app/common/wrapper.dart';
-
-final navigationKey = GlobalKey<NavigatorState>();
+import 'package:habitist/app/common/utils/singleton.provider.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
-    runApp(const ProviderScope(child: MyApp()));
+    runApp(
+      const ProviderScope(
+        child: Habitist(),
+      ),
+    );
   }, (error, stackTrace) {
     FirebaseCrashlytics.instance.recordError(error, stackTrace);
   });
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Habitist extends ConsumerWidget {
+  const Habitist({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: navigationKey,
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp.router(
+      routerConfig: ref.read(routerProvider).router,
       title: 'Habitist',
-      theme: Theme.of(context).copyWith(
-        primaryColor: Colors.black,
-        scaffoldBackgroundColor: Colors.white,
-        appBarTheme: Theme.of(context).appBarTheme.copyWith(
-            backgroundColor: Colors.white, foregroundColor: Colors.black),
-        textTheme: Theme.of(context)
-            .textTheme
-            .apply(fontFamily: GoogleFonts.nunitoSans().fontFamily),
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          type: BottomNavigationBarType.fixed,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          selectedIconTheme: IconThemeData(color: Colors.white),
-        ),
-      ),
-      home: const Wrapper(),
+      theme: ref.read(themeProvider).theme,
     );
   }
 }

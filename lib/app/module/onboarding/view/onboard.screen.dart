@@ -11,6 +11,7 @@ class OnboardScreen extends ConsumerWidget {
   final onboardScreenProvider =
       StateNotifierProvider<OnboardScreenViewModel, OnboardScreenModel>(
           (_) => OnboardScreenViewModel());
+
   OnboardScreen({super.key});
 
   @override
