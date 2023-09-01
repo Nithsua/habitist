@@ -5,7 +5,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:habitist/app/wrapper.dart';
+import 'package:habitist/app/common/wrapper.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
 
@@ -30,17 +30,17 @@ class MyApp extends StatelessWidget {
       theme: Theme.of(context).copyWith(
         primaryColor: Colors.black,
         scaffoldBackgroundColor: Colors.white,
-        backgroundColor: Colors.white,
         appBarTheme: Theme.of(context).appBarTheme.copyWith(
             backgroundColor: Colors.white, foregroundColor: Colors.black),
         textTheme: Theme.of(context)
             .textTheme
             .apply(fontFamily: GoogleFonts.nunitoSans().fontFamily),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            type: BottomNavigationBarType.fixed,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            selectedIconTheme: IconThemeData(color: Colors.white)),
+          type: BottomNavigationBarType.fixed,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          selectedIconTheme: IconThemeData(color: Colors.white),
+        ),
       ),
       home: const Wrapper(),
     );

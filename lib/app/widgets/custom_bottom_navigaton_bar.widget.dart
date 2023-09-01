@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:habitist/app/screens/new_habit.screen.dart';
+import 'package:habitist/app/module/new_habit/screen/new_habit.screen.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final void Function(int)? onTap;

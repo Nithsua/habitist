@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:habitist/app/extension/color.dart';
-import 'package:habitist/app/models/data/habit/habit.model.dart';
+import 'package:habitist/app/common/extension/color.dart';
+import 'package:habitist/app/common/models/habit/habit.model.dart';
 import 'package:habitist/app/widgets/outlined_icon_button.widget.dart';
 
 class Activity extends StatelessWidget {
@@ -70,7 +70,7 @@ class Activity extends StatelessWidget {
                         ),
                         Text(
                           '0/${habit.goalValue} ${habit.unit ?? ''}',
-                          style: Theme.of(context).textTheme.caption,
+                          style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
                     ),
